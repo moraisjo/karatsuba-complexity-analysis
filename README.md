@@ -15,6 +15,36 @@ Onde:
 (N): Número de nós (blocos de código)
 (P): Componentes conectados (geralmente 1 para programas simples)
 
+## 📌 Descrição do Projeto
+Este projeto implementa o **algoritmo de Karatsuba** para multiplicação de inteiros grandes.  
+O algoritmo segue uma abordagem **recursiva**, reduzindo o número de multiplicações necessárias em comparação à multiplicação tradicional.
+
+### 🔎 Explicação da Lógica
+Caso base: se x ou y tiverem apenas um dígito realiza a multiplicação
+Determina o tamanho do maior número
+Divide os números em partes altas e baixas
+Três multiplicações recursivas
+Combina os resultados para formar o produto final
+
+### 🔎 Fluxo de Controle
+| Nó      | Ação                                                                                                                  |
+| ------- | --------------------------------------------------------------------------------------------------------------------- |
+| **N1**  | Início da função `karatsuba(x, y)`                                                                                    |
+| **N2**  | Verificação do caso base: `if x < 10 or y < 10`                                                                       |
+| **N3**  | Retorno direto caso base: `return x * y`                                                                              |
+| **N4**  | Cálculo do tamanho dos números: `n = max(len(str(x)), len(str(y)))`                                                   |
+| **N5**  | Cálculo do ponto médio `m = n // 2`                                                                                   |
+| **N6**  | Divisão dos números em partes altas e baixas: `high_x, low_x = divmod(x, 10**m)` e `high_y, low_y = divmod(y, 10**m)` |
+| **N7**  | Chamada recursiva `z0 = karatsuba(low_x, low_y)`                                                                      |
+| **N8**  | Chamada recursiva `z1 = karatsuba(low_x + high_x, low_y + high_y)`                                                    |
+| **N9**  | Chamada recursiva `z2 = karatsuba(high_x, high_y)`                                                                    |
+| **N10** | Combinação dos resultados parciais `(z1 - z2 - z0) * 10**m`                                                           |
+| **N11** | Retorno final da função: `(z2 * 10**(2*m)) + ((z1 - z2 - z0) * 10**m) + z0`                                           |
+
+### 🔎 Grafo
+
+
+
 ## Como rodar este programa?
 ### Ambiente virtual
 Passo 1: Criar e ativar o ambiente virtual
