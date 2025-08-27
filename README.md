@@ -42,8 +42,7 @@ Combina os resultados para formar o produto final
 | **N11** | Retorno final da função: `(z2 * 10**(2*m)) + ((z1 - z2 - z0) * 10**m) + z0`                                           |
 
 ### 🔎 Grafo
-
-
+![Grafo](https://raw.githubusercontent.com/moraisjo/karatsuba-complexity-analysis/524b8e9cd84f489c8e5bd77db41966ff40b18f62/docs/graph-karatsuba.drawio.svg)
 
 ## Como rodar este programa?
 ### Ambiente virtual
