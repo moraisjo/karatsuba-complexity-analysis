@@ -1,22 +1,41 @@
-# karatsuba-complexity-analysis
-
-## Sobre o Projeto
-
-
-## O que é Complexidade Ciclomática?
-A complexidade ciclomática é uma métrica usada para medir a complexidade do fluxo de controle de um programa. Ela calcula o número de caminhos independentes no código, considerando estruturas como loops (for, while) e condicionais (if, try/except). Quanto maior o valor, mais complexo é o código.
+# Algoritmo de Karatsuba
 
 ## 📌 Descrição do Projeto
 Este projeto implementa o **algoritmo de Karatsuba** para multiplicação de inteiros grandes. O algoritmo segue uma abordagem **recursiva**, reduzindo o número de multiplicações necessárias em comparação à multiplicação tradicional. O propósito deste projeto é o de analisar a complexidade ciclomática e assintótica do algoritmo do algoritmo em questão e explorar os conceitos de complexidade ciclomática, notação Big-O e complexidade assintótica.
 
 ### 🔎 Explicação da Lógica
-Caso base: se x ou y tiverem apenas um dígito realiza a multiplicação
-Determina o tamanho do maior número
-Divide os números em partes altas e baixas
-Três multiplicações recursivas
-Combina os resultados para formar o produto final
+O algoritmo de Karatsuba é uma técnica eficiente para multiplicação de números inteiros grandes usando divisão e conquista, que reduz o número de multiplicações necessárias em comparação ao método tradicional.
 
-### 🔎 Fluxo de Controle
+O funcionamento do algoritmo pode ser descrito em etapas. 
+
+Caso base:<br>
+Se um dos números for menor que 10 (ou seja, tiver apenas um dígito), o algoritmo realiza a multiplicação direta. Esse é o caso mais simples e termina a recursão.
+
+Divisão dos números:<br>
+Para números maiores, o algoritmo divide cada número em duas partes: a parte alta (high_x, high_y) e a parte baixa (low_x, low_y). Por exemplo, se o número tiver 6 dígitos, ele será dividido ao meio em dois números de 3 dígitos cada. Essa divisão é feita usando a função divmod e potências de 10, de forma que:<br>
+```code
+high_x, low_x = divmod(x, 10**m)
+high_y, low_y = divmod(y, 10**m)
+```
+
+Chamadas recursivas:
+O Karatsuba faz três multiplicações recursivas, cada uma envolvendo números menores:<br>
+`z0 = karatsuba(low_x, low_y)` → multiplica as partes baixas.<br>
+`z1 = karatsuba(low_x + high_x, low_y + high_y)` → multiplica a soma das partes alta e baixa.<br>
+`z2 = karatsuba(high_x, high_y)` → multiplica as partes altas.<br>
+
+A recursão continua até que todos os subproblemas cheguem ao caso base (números de um dígito).
+
+Combinação dos resultados:<br>
+Após as chamadas recursivas, os resultados são combinados para formar o produto final.  
+
+Essa técnica reduz o número de multiplicações diretas de quatro (como na abordagem tradicional) para **três multiplicações recursivas**, tornando o algoritmo mais rápido para números grandes.
+
+A parte **recursiva** é a chave: a cada nível, o algoritmo divide os números ao meio e multiplica apenas três pares, até chegar a números pequenos o suficiente para multiplicar diretamente.
+
+Em resumo, o Karatsuba **divide o problema em subproblemas menores**, resolve cada um recursivamente e depois combina os resultados de forma inteligente, aproveitando somas e subtrações para reduzir o trabalho total.  
+
+### Fluxo de Controle
 | Nó      | Ação                                                                                                                  |
 | ------- | --------------------------------------------------------------------------------------------------------------------- |
 | **N1**  | Início da função `karatsuba(x, y)`                                                                                    |
@@ -34,8 +53,10 @@ Combina os resultados para formar o produto final
 ### Grafo
 ![Grafo](https://raw.githubusercontent.com/moraisjo/karatsuba-complexity-analysis/524b8e9cd84f489c8e5bd77db41966ff40b18f62/docs/graph-karatsuba.drawio.svg)
 
-### Calculo da complexidade ciclomática
+## O que é Complexidade Ciclomática?
+A complexidade ciclomática é uma métrica usada para medir a complexidade do fluxo de controle de um programa. Ela calcula o número de caminhos independentes no código, considerando estruturas como loops (for, while) e condicionais (if, try/except). Quanto maior o valor, mais complexo é o código.
 
+### Calculo da complexidade ciclomática
 Fórmula:
 $( M = E - N + 2P )$
 
@@ -51,7 +72,6 @@ $M = 10 - 11 + 2*1$<br>
 $M = -1 + 2 = 1$
 
 ### Complexidade Temporal
-
 O algoritmo de Karatsuba é um algoritmo de multiplicação de inteiros baseado em **divisão e conquista**.
 
 1. Se $x < 10$ ou $y < 10$, multiplicação direta $O(1)$ (caso base).
@@ -69,8 +89,7 @@ $$
 \boxed{O(n^{1.585})}
 $$
 
-## 2️⃣ Complexidade Espacial
-
+## Complexidade Espacial
 * Cada chamada recursiva cria variáveis locais (`high_x`, `low_x`, `z0`, `z1`, `z2`), mas elas são de tamanho proporcional a $n$.
 * A profundidade da recursão é $O(\log n)$ (porque o tamanho do número é dividido por 2 a cada chamada).
 
@@ -85,7 +104,6 @@ Se considerarmos **armazenamento adicional para as somas e produtos**, o custo p
 ✅ Complexidade espacial: $O(n)$ adicional + $O(\log n)$ para a pilha de chamadas.
 
 ### Casos de execução
-
 No Karatsuba, **o número de operações não depende dos valores específicos dos números**, apenas do tamanho $n$ (número de dígitos). Portanto:
 
 * **Melhor caso:** $O(1)$ (quando não entra na parte recursiva e faz a multiplicação direto)
